@@ -1,20 +1,23 @@
 import React from "react"
-import { Link } from "gatsby"
+import { useRouter } from "next/router"
+import Link from "next/link"
+import config from "../config"
 
-const Layout = ({ location, title, children }) => {
-  const rootPath = `${__PATH_PREFIX__}/`
-  const isRootPath = location.pathname === rootPath
+const Layout = ({ children }) => {
+  const router = useRouter()
+  const isRootPath = router.asPath === "/"
+  const title = config.title
   let header
 
   if (isRootPath) {
     header = (
       <h1 className="main-heading">
-        <Link to="/">{title}</Link>
+        <Link href="/">{title}</Link>
       </h1>
     )
   } else {
     header = (
-      <Link className="header-link-home" to="/">
+      <Link className="header-link-home" href="/">
         {title}
       </Link>
     )
@@ -27,7 +30,7 @@ const Layout = ({ location, title, children }) => {
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <a href="https://nextjs.org">Next.js</a>
       </footer>
     </div>
   )
